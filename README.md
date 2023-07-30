@@ -1,2 +1,0 @@
-# Memowareapp
-Mobile App Development
