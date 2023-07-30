@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "634652186984",
+    "project_id": "memoware-dc18f",
+    "storage_bucket": "memoware-dc18f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:634652186984:android:a09d4a734e79b378ba1edd",
+        "android_client_info": {
+          "package_name": "uk.ac.tees.aad.w9569965.memowareapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "634652186984-r6fkplm2h8kkur8bs3ifc2a56mu3gpf3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB5sRDBqBR-fJc9g3hJ4Has0Tu6X-xr8HI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "634652186984-r6fkplm2h8kkur8bs3ifc2a56mu3gpf3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
