@@ -1,4 +1,4 @@
-package uk.ac.tees.aad.w9569965.memowareapp.login.weather.maps;
+package uk.ac.tees.aad.w9569965.memowareapp.login.maps;
 
 import android.os.Bundle;
 

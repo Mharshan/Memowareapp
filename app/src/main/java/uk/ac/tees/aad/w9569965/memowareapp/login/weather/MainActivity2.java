@@ -31,7 +31,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import uk.ac.tees.aad.w9569965.memowareapp.R;
-import uk.ac.tees.aad.w9569965.memowareapp.login.weather.maps.MapsActivity;
+import uk.ac.tees.aad.w9569965.memowareapp.login.maps.MapsActivity;
 
 public class MainActivity2 extends AppCompatActivity {
 

@@ -59,7 +59,7 @@ public class DetailMemoActivity extends AppCompatActivity {
 
   @Override
   protected void onStart() {
-    loadTask();
+    loadMemo();
     super.onStart();
   }
 
@@ -123,13 +123,13 @@ public class DetailMemoActivity extends AppCompatActivity {
   }
 
 
-  private void loadTask() {
+  private void loadMemo() {
     memoLists.findOne(taskId).addOnSuccessListener(documentSnapshot -> {
       // Set task.
       task = new MemoModel(documentSnapshot);
 
       // Set access.
-      setTaskAccess();
+      setMemoAccess();
 
       // Display the task data.
       tvTitle.setText(task.getTitle());
@@ -138,14 +138,14 @@ public class DetailMemoActivity extends AppCompatActivity {
           InputHelper.DATE_FORMAT_HUMAN_LONG_US, Locale.US));
 
     }).addOnFailureListener(e -> {
-      Log.e("loadTask", e.getMessage(), e);
-      Toast.makeText(this, "Failed to get task. Try again later", Toast.LENGTH_SHORT).show();
+      Log.e("loadMemo", e.getMessage(), e);
+      Toast.makeText(this, "Failed to get memo. Try again later", Toast.LENGTH_SHORT).show();
       finish();    // Finish the activity.
     });
   }
 
 
-  private void setTaskAccess() {
+  private void setMemoAccess() {
     MenuItem shareItem = menu.findItem(R.id.shareItem);
     MenuItem editItem = menu.findItem(R.id.editItem);
     MenuItem deleteItem = menu.findItem(R.id.deleteItem);

@@ -19,7 +19,7 @@
             android:value="AIzaSyBrHnOPzYMto3a0P77cSQHdadx2A2WSDU8" />
 
         <activity
-            android:name="uk.ac.tees.aad.w9569965.memowareapp.login.weather.maps.MapsActivity"
+            android:name="uk.ac.tees.aad.w9569965.memowareapp.login.maps.MapsActivity"
             android:exported="false"
             android:label="@string/title_activity_maps" />
         <activity

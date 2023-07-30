@@ -22,7 +22,7 @@ import uk.ac.tees.aad.w9569965.memowareapp.login.fragments.EmptyMemoListFragment
 import uk.ac.tees.aad.w9569965.memowareapp.login.lists.MemoLists;
 import uk.ac.tees.aad.w9569965.memowareapp.login.fragments.MemoListFragment;
 import uk.ac.tees.aad.w9569965.memowareapp.login.weather.WeatherActivity;
-import uk.ac.tees.aad.w9569965.memowareapp.login.weather.maps.MapsActivity;
+import uk.ac.tees.aad.w9569965.memowareapp.login.maps.MapsActivity;
 
 public class MainActivity extends AppCompatActivity {
 
