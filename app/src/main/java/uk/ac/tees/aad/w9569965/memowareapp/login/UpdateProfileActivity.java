@@ -15,7 +15,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
 
 import uk.ac.tees.aad.w9569965.memowareapp.R;
-import uk.ac.tees.aad.w9569965.memowareapp.login.lists.UserCollection;
+import uk.ac.tees.aad.w9569965.memowareapp.login.lists.UserLists;
 import uk.ac.tees.aad.w9569965.memowareapp.login.helper.InputHelper;
 
 public class UpdateProfileActivity extends AppCompatActivity {
@@ -23,7 +23,7 @@ public class UpdateProfileActivity extends AppCompatActivity {
   private final FirebaseAuth auth = FirebaseAuth.getInstance();
   private final FirebaseUser user = auth.getCurrentUser();
 
-  /* Collections */ UserCollection userCollection = new UserCollection();
+  /* Collections */ UserLists userLists = new UserLists();
 
   /* View elements. */
   private Button btnUpdate;
@@ -56,12 +56,12 @@ public class UpdateProfileActivity extends AppCompatActivity {
             = new UserProfileChangeRequest.Builder().setDisplayName(name).build();
 
         /* Update the user profiles. */
-        user.updateProfile(profileUpdates).addOnCompleteListener(task -> {
-          if (task.isSuccessful()) {
+        user.updateProfile(profileUpdates).addOnCompleteListener(memo -> {
+          if (memo.isSuccessful()) {
             /* Save to user collection. */
-            userCollection.save(user.getUid(), user.getEmail(), user.getDisplayName())
-                .addOnCompleteListener(task1 -> {
-                  if (task1.isSuccessful()) {
+            userLists.save(user.getUid(), user.getEmail(), user.getDisplayName())
+                .addOnCompleteListener(memo1 -> {
+                  if (memo1.isSuccessful()) {
                     /* Go to main page. */
                     startActivity(new Intent(this, MainActivity.class));
                     finish();    // Finish this activity.
@@ -69,12 +69,12 @@ public class UpdateProfileActivity extends AppCompatActivity {
                     Toast.makeText(this, "Failed adding profile to collection.", Toast.LENGTH_SHORT)
                         .show();
                     Log.i("updateProfile", "Failed adding profile to collection.",
-                        task.getException());
+                        memo.getException());
                   }
                 });
           } else {
             Toast.makeText(this, "Failed updating profile.", Toast.LENGTH_SHORT).show();
-            Log.i("updateProfile", "Failed updating profile.", task.getException());
+            Log.i("updateProfile", "Failed updating profile.", memo.getException());
           }
         });
       } catch (NullPointerException e) {

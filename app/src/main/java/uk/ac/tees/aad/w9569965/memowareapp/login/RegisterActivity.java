@@ -18,8 +18,7 @@ import com.google.firebase.auth.FirebaseUser;
 import uk.ac.tees.aad.w9569965.memowareapp.R;
 import uk.ac.tees.aad.w9569965.memowareapp.login.helper.ActivityHelper;
 import uk.ac.tees.aad.w9569965.memowareapp.login.helper.InputHelper;
-import uk.ac.tees.aad.w9569965.memowareapp.login.validation.EmailValidation;
-import uk.ac.tees.aad.w9569965.memowareapp.login.validation.EmailValidationException;
+
 
 public class RegisterActivity extends AppCompatActivity {
   /* Authentication. */
@@ -60,9 +59,7 @@ public class RegisterActivity extends AppCompatActivity {
         String email = InputHelper.getRequiredInput(inputEmail);
         String password = InputHelper.getRequiredInput(inputPassword);
 
-        /* Validate email */
-        if (!EmailValidation.isEmailValid(email))
-          throw new EmailValidationException("Invalid email format.");
+
 
         /* Create new account. */
         auth.createUserWithEmailAndPassword(email, password).addOnSuccessListener(authResult -> {
@@ -91,26 +88,23 @@ public class RegisterActivity extends AppCompatActivity {
             Log.e("register", exception.getMessage(), exception);
           }
         });
-      } catch (EmailValidationException e) {
+      } catch (Exception e) {
         /* If email is invalid. */
         Log.i("inputValidation", e.getMessage(), e);
         inputEmail.setError(e.getMessage());
-      } catch (NullPointerException e) {
-        /* If some input is empty. */
-        Log.i("inputValidation", e.getMessage(), e);
       }
     });
   }
 
 
   private void sendEmailVerification(FirebaseUser user) {
-    user.sendEmailVerification().addOnCompleteListener(task -> {
-      if (task.isSuccessful()) {
+    user.sendEmailVerification().addOnCompleteListener(memo -> {
+      if (memo.isSuccessful()) {
         /* Go to Email Verification Page. */
         startActivity(new Intent(this, VerifyEmailActivity.class));
         finish();
       } else {
-        Log.e("verifyEmail", "Email verification failed", task.getException());
+        Log.e("verifyEmail", "Email verification failed", memo.getException());
         Toast.makeText(this, "Failed to send email verification", Toast.LENGTH_SHORT).show();
       }
     });

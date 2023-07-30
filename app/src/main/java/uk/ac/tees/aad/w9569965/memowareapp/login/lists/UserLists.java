@@ -11,13 +11,13 @@ import java.util.Map;
 
 import uk.ac.tees.aad.w9569965.memowareapp.login.models.UserModel;
 
-public class UserCollection {
+public class UserLists {
   public static final String COLLECTION_PATH = "Users";
   private final CollectionReference collection = FirebaseFirestore.getInstance()
       .collection(COLLECTION_PATH);
 
 
-  public UserCollection() {}
+  public UserLists() {}
 
 
   public Task<DocumentSnapshot> findOne(String userId) {

@@ -1,4 +1,4 @@
-package uk.ac.tees.aad.w9569965.memowareapp.login.activities.tasks;
+package uk.ac.tees.aad.w9569965.memowareapp.login.activities.memos;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -16,15 +16,15 @@ import java.text.ParseException;
 import java.util.Calendar;
 
 import uk.ac.tees.aad.w9569965.memowareapp.R;
-import uk.ac.tees.aad.w9569965.memowareapp.login.lists.TaskCollection;
+import uk.ac.tees.aad.w9569965.memowareapp.login.lists.MemoLists;
 import uk.ac.tees.aad.w9569965.memowareapp.login.helper.DateTimePickerDialog;
 import uk.ac.tees.aad.w9569965.memowareapp.login.helper.InputHelper;
 
-public class AddTaskActivity extends AppCompatActivity {
+public class AddMemoActivity extends AppCompatActivity {
   /* Logged user. */
   private final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
   private final Calendar calendar = Calendar.getInstance();
-  private final TaskCollection taskCollection = new TaskCollection();
+  private final MemoLists memoLists = new MemoLists();
 
   /* View elements. */
   private Button btnAddTask, btnWeather;
@@ -64,9 +64,7 @@ public class AddTaskActivity extends AppCompatActivity {
     });
 
 
-    /* When Add Task Button is clicked. */
     btnAddTask.setOnClickListener(view -> {
-      /* Add new task. */
       try {
         String title = InputHelper.getRequiredInput(inputTitle);
         String description = InputHelper.getRequiredInput(inputDescription);
@@ -74,15 +72,14 @@ public class AddTaskActivity extends AppCompatActivity {
 
         Timestamp deadline = new Timestamp(InputHelper.inputToDate(strDeadline));
 
-        /* Add new task. */
-        taskCollection.insert(title, description, deadline, user.getUid())
+        memoLists.insert(title, description, deadline, user.getUid())
             .addOnSuccessListener(documentReference -> {
               /* If success, finish this activity. */
-              Toast.makeText(this, "Task successfully added.", Toast.LENGTH_SHORT).show();
+              Toast.makeText(this, "Memo successfully added.", Toast.LENGTH_SHORT).show();
               finish();
             })
             .addOnFailureListener(e -> {
-              Toast.makeText(this, "Failed to add task.", Toast.LENGTH_SHORT).show();
+              Toast.makeText(this, "Failed to add Memo.", Toast.LENGTH_SHORT).show();
               Log.e("addTask", e.getMessage(), e);
             });
       } catch (NullPointerException e) {

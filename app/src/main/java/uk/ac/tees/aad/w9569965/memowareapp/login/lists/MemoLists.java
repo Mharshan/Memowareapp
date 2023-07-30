@@ -12,15 +12,15 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.HashMap;
 import java.util.Map;
 
-import uk.ac.tees.aad.w9569965.memowareapp.login.models.TaskModel;
+import uk.ac.tees.aad.w9569965.memowareapp.login.models.MemoModel;
 
-public class TaskCollection {
+public class MemoLists {
   public static final String COLLECTION_PATH = "Tasks";
   private final CollectionReference collection = FirebaseFirestore.getInstance()
       .collection(COLLECTION_PATH);
 
 
-  public TaskCollection() {}
+  public MemoLists() {}
 
 
   public Task<DocumentSnapshot> findOne(String taskId) {
@@ -29,12 +29,12 @@ public class TaskCollection {
 
 
   public Task<QuerySnapshot> findAll(String ownerId) {
-    return collection.whereEqualTo(TaskModel.OWNER_ID_FIELD, ownerId).get();
+    return collection.whereEqualTo(MemoModel.OWNER_ID_FIELD, ownerId).get();
   }
 
 
   public Task<QuerySnapshot> findAll(String ownerId, String orderByField, boolean isAscending) {
-    return collection.whereEqualTo(TaskModel.OWNER_ID_FIELD, ownerId)
+    return collection.whereEqualTo(MemoModel.OWNER_ID_FIELD, ownerId)
         .orderBy(orderByField, isAscending ? Query.Direction.ASCENDING : Query.Direction.DESCENDING)
         .get();
   }
@@ -44,19 +44,19 @@ public class TaskCollection {
       String title, String description, Timestamp deadline, String ownerId
   ) {
     Map<String, Object> data = new HashMap<>();
-    data.put(TaskModel.TITLE_FIELD, title);
-    data.put(TaskModel.DESCRIPTION_FIELD, description);
-    data.put(TaskModel.DEADLINE_FIELD, deadline);
-    data.put(TaskModel.OWNER_ID_FIELD, ownerId);
+    data.put(MemoModel.TITLE_FIELD, title);
+    data.put(MemoModel.DESCRIPTION_FIELD, description);
+    data.put(MemoModel.DEADLINE_FIELD, deadline);
+    data.put(MemoModel.OWNER_ID_FIELD, ownerId);
 
     return collection.add(data);
   }
 
 
-  public Task<Void> update(TaskModel task) {
+  public Task<Void> update(MemoModel task) {
     return collection.document(task.getId())
-        .update(TaskModel.TITLE_FIELD, task.getTitle(), TaskModel.DESCRIPTION_FIELD,
-            task.getDescription(), TaskModel.DEADLINE_FIELD, task.getDeadline());
+        .update(MemoModel.TITLE_FIELD, task.getTitle(), MemoModel.DESCRIPTION_FIELD,
+            task.getDescription(), MemoModel.DEADLINE_FIELD, task.getDeadline());
   }
 
 

@@ -14,11 +14,11 @@ import java.util.ArrayList;
 import uk.ac.tees.aad.w9569965.memowareapp.R;
 import uk.ac.tees.aad.w9569965.memowareapp.login.helper.InputHelper;
 
-public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskListViewHolder> {
+public class MemoAdapter extends RecyclerView.Adapter<MemoAdapter.MemoListViewHolder> {
   /**
    * List of task.
    */
-  private final ArrayList<TaskItem> taskItems;
+  private final ArrayList<MemoItem> memoItems;
 
   /**
    * Closure to handle actions of task item.
@@ -26,32 +26,32 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskListViewHo
   private final OnItemListener onItemListener;
 
 
-  public TaskAdapter(ArrayList<TaskItem> taskItems, OnItemListener onItemListener) {
-    this.taskItems = taskItems;
+  public MemoAdapter(ArrayList<MemoItem> memoItems, OnItemListener onItemListener) {
+    this.memoItems = memoItems;
     this.onItemListener = onItemListener;
   }
 
 
   @NonNull
   @Override
-  public TaskListViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+  public MemoListViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
     View itemView = LayoutInflater.from(parent.getContext())
         .inflate(R.layout.item_task, parent, false);
-    return new TaskListViewHolder(itemView, onItemListener);
+    return new MemoListViewHolder(itemView, onItemListener);
   }
 
 
   @Override
-  public void onBindViewHolder(@NonNull TaskListViewHolder holder, int position) {
-    TaskItem taskItem = taskItems.get(position);
+  public void onBindViewHolder(@NonNull MemoListViewHolder holder, int position) {
+    MemoItem memoItem = memoItems.get(position);
 
-    // Set display of task items.
-    holder.tvTitle.setText(taskItem.getTitle());
-    holder.tvDeadline.setText(InputHelper.dateToString(taskItem.getDeadline()));
+    // Set display of memo items.
+    holder.tvTitle.setText(memoItem.getTitle());
+    holder.tvDeadline.setText(InputHelper.dateToString(memoItem.getDeadline()));
 
-    // Display the name of task owner if not null.
-    if (taskItem.getOwnerName() != null) {
-      holder.tvOwner.setText(taskItem.getOwnerName());
+    // Display the name of memo owner if not null.
+    if (memoItem.getOwnerName() != null) {
+      holder.tvOwner.setText(memoItem.getOwnerName());
       holder.ownerField.setVisibility(View.VISIBLE);
     }
   }
@@ -59,7 +59,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskListViewHo
 
   @Override
   public int getItemCount() {
-    return taskItems.size();
+    return memoItems.size();
   }
 
 
@@ -73,7 +73,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskListViewHo
   }
 
 
-  static class TaskListViewHolder extends RecyclerView.ViewHolder {
+  static class MemoListViewHolder extends RecyclerView.ViewHolder {
     // View elements.
     protected final TextView tvTitle;
     protected final TextView tvDeadline;
@@ -86,7 +86,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskListViewHo
     final OnItemListener onItemListener;
 
 
-    public TaskListViewHolder(@NonNull View itemView, OnItemListener onItemListener) {
+    public MemoListViewHolder(@NonNull View itemView, OnItemListener onItemListener) {
       super(itemView);
 
       // Initialize view elements.

@@ -21,33 +21,32 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import java.util.ArrayList;
 
 import uk.ac.tees.aad.w9569965.memowareapp.R;
-import uk.ac.tees.aad.w9569965.memowareapp.login.activities.tasks.DetailTaskActivity;
-import uk.ac.tees.aad.w9569965.memowareapp.login.adapters.TaskAdapter;
-import uk.ac.tees.aad.w9569965.memowareapp.login.adapters.TaskItem;
-import uk.ac.tees.aad.w9569965.memowareapp.login.lists.TaskCollection;
-import uk.ac.tees.aad.w9569965.memowareapp.login.lists.UserCollection;
-import uk.ac.tees.aad.w9569965.memowareapp.login.models.TaskModel;
-import uk.ac.tees.aad.w9569965.memowareapp.login.models.UserModel;
+import uk.ac.tees.aad.w9569965.memowareapp.login.activities.memos.DetailMemoActivity;
+import uk.ac.tees.aad.w9569965.memowareapp.login.adapters.MemoAdapter;
+import uk.ac.tees.aad.w9569965.memowareapp.login.adapters.MemoItem;
+import uk.ac.tees.aad.w9569965.memowareapp.login.lists.MemoLists;
+import uk.ac.tees.aad.w9569965.memowareapp.login.lists.UserLists;
+import uk.ac.tees.aad.w9569965.memowareapp.login.models.MemoModel;
 
-public class TaskListFragment extends Fragment implements TaskAdapter.OnItemListener {
+public class MemoListFragment extends Fragment implements MemoAdapter.OnItemListener {
   // Collections.
-  private final TaskCollection taskCollection = new TaskCollection();
-  private final UserCollection userCollection = new UserCollection();
+  private final MemoLists memoLists = new MemoLists();
+  private final UserLists userLists = new UserLists();
 
   // List of task.
-  private final ArrayList<TaskItem> taskItems = new ArrayList<>();
+  private final ArrayList<MemoItem> memoItems = new ArrayList<>();
 
   // The logged user.
   private FirebaseUser user;
 
   // Task adapter.
-  private TaskAdapter taskAdapter;
+  private MemoAdapter memoAdapter;
 
   // View elements.
   private RecyclerView rvTask;
 
 
-  public TaskListFragment() {
+  public MemoListFragment() {
     // Required empty public constructor
     super(R.layout.fragment_task_list);
   }
@@ -96,10 +95,10 @@ public class TaskListFragment extends Fragment implements TaskAdapter.OnItemList
    */
   private void initTaskAdapter() {
     // Initialize task adapter.
-    taskAdapter = new TaskAdapter(taskItems, this);
+    memoAdapter = new MemoAdapter(memoItems, this);
 
     // Set the adapter to displaying task list.
-    rvTask.setAdapter(taskAdapter);
+    rvTask.setAdapter(memoAdapter);
     rvTask.setLayoutManager(new LinearLayoutManager(getContext()));
     rvTask.setItemAnimator(new DefaultItemAnimator());
   }
@@ -108,8 +107,8 @@ public class TaskListFragment extends Fragment implements TaskAdapter.OnItemList
   @Override
   public void onItemClick(int position) {
     // Go to Detail Task Page with bring task id.
-    Intent intent = new Intent(getContext(), DetailTaskActivity.class);
-    intent.putExtra("taskId", taskItems.get(position).getId());
+    Intent intent = new Intent(getContext(), DetailMemoActivity.class);
+    intent.putExtra("taskId", memoItems.get(position).getId());
     startActivity(intent);
   }
 
@@ -117,20 +116,20 @@ public class TaskListFragment extends Fragment implements TaskAdapter.OnItemList
   @SuppressLint("NotifyDataSetChanged")
   private void loadTasks() {
     // If tasks is not empty.
-    if (!taskItems.isEmpty()) {
-      taskItems.clear();
-      taskAdapter.notifyDataSetChanged();
+    if (!memoItems.isEmpty()) {
+      memoItems.clear();
+      memoAdapter.notifyDataSetChanged();
     }
 
     // Retrieve own task data.
-    taskCollection.findAll(user.getUid()).addOnSuccessListener(queryDocumentSnapshots -> {
+    memoLists.findAll(user.getUid()).addOnSuccessListener(queryDocumentSnapshots -> {
       for (DocumentSnapshot document : queryDocumentSnapshots.getDocuments()) {
-        TaskModel task = new TaskModel(document);
-        TaskItem taskItem = new TaskItem(task);
+        MemoModel task = new MemoModel(document);
+        MemoItem memoItem = new MemoItem(task);
 
         // Add the task to list, then refresh the adapter on data changed.
-        if (taskItems.add(taskItem))
-          taskAdapter.notifyItemInserted(taskItems.indexOf(taskItem));
+        if (memoItems.add(memoItem))
+          memoAdapter.notifyItemInserted(memoItems.indexOf(memoItem));
       }
     });
 

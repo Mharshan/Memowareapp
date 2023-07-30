@@ -12,10 +12,10 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import uk.ac.tees.aad.w9569965.memowareapp.R;
-import uk.ac.tees.aad.w9569965.memowareapp.login.activities.tasks.AddTaskActivity;
+import uk.ac.tees.aad.w9569965.memowareapp.login.activities.memos.AddMemoActivity;
 
-public class EmptyTaskListFragment extends Fragment {
-  public EmptyTaskListFragment() {
+public class EmptyMemoListFragment extends Fragment {
+  public EmptyMemoListFragment() {
     // Required empty public constructor
     super(R.layout.fragment_empty_task_list);
   }
@@ -37,7 +37,7 @@ public class EmptyTaskListFragment extends Fragment {
 
     // When Add Button is clicked, go to Add Task Activity.
     btnAddTask.setOnClickListener(
-        onClickView -> startActivity(new Intent(getActivity(), AddTaskActivity.class)));
+        onClickView -> startActivity(new Intent(getActivity(), AddMemoActivity.class)));
 
     // Call super method.
     super.onViewCreated(view, savedInstanceState);

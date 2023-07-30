@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="uk.ac.tees.aad.w9569965.memowareapp.login.activities.tasks.AddTaskActivity"
+    tools:context="uk.ac.tees.aad.w9569965.memowareapp.login.activities.memos.AddMemoActivity"
     >
 
     <!-- Title Field -->
@@ -88,7 +88,7 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="16dp"
         android:layout_marginTop="24dp"
-        android:text="@string/label_button_add_task"
+        android:text="@string/label_button_add_memo"
         android:textAllCaps="false"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

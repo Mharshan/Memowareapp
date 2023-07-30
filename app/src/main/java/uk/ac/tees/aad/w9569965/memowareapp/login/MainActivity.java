@@ -17,17 +17,15 @@ import com.google.firebase.auth.FirebaseUser;
 import java.util.Objects;
 
 import uk.ac.tees.aad.w9569965.memowareapp.R;
-import uk.ac.tees.aad.w9569965.memowareapp.login.activities.tasks.AddTaskActivity;
-import uk.ac.tees.aad.w9569965.memowareapp.login.lists.TaskCollection;
-import uk.ac.tees.aad.w9569965.memowareapp.login.fragments.EmptyTaskListFragment;
-import uk.ac.tees.aad.w9569965.memowareapp.login.fragments.TaskListFragment;
+import uk.ac.tees.aad.w9569965.memowareapp.login.activities.memos.AddMemoActivity;
+import uk.ac.tees.aad.w9569965.memowareapp.login.fragments.EmptyMemoListFragment;
+import uk.ac.tees.aad.w9569965.memowareapp.login.lists.MemoLists;
+import uk.ac.tees.aad.w9569965.memowareapp.login.fragments.MemoListFragment;
 import uk.ac.tees.aad.w9569965.memowareapp.login.weather.WeatherActivity;
 import uk.ac.tees.aad.w9569965.memowareapp.login.weather.maps.MapsActivity;
 
 public class MainActivity extends AppCompatActivity {
-  /**
-   * Key to transfer task id value using intent.
-   */
+
   public static final String TASK_ID_KEY = "taskId";
 
   /* Authentication. */
@@ -35,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
   private final FirebaseUser user = auth.getCurrentUser();
 
   // Collections.
-  private final TaskCollection taskCollection = new TaskCollection();
+  private final MemoLists memoLists = new MemoLists();
 
   // The fragment manager.
   private FragmentManager fragmentManager;
@@ -78,17 +76,14 @@ public class MainActivity extends AppCompatActivity {
 
   @Override
   public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-    /* If Add Task Item is selected. */
+
     if (item.getItemId() == R.id.addTaskItem) {
-      /* go to Add Task Page. */
-      startActivity(new Intent(this, AddTaskActivity.class));
+      startActivity(new Intent(this, AddMemoActivity.class));
     }
     if (item.getItemId() == R.id.weather) {
-      /* go to Add Task Page. */
       startActivity(new Intent(this, WeatherActivity.class));
     }
     if (item.getItemId() == R.id.maps) {
-      /* go to Add Task Page. */
       startActivity(new Intent(this, MapsActivity.class));
     }
     /* If Logout Item is selected. */
@@ -111,24 +106,22 @@ public class MainActivity extends AppCompatActivity {
 
 
   /**
-   * Set fragment to the fragment container view. Will set {@code EmptyTaskListFragment} if there
-   * are no task. Otherwise, {@code TaskListFragment} will be set.
+   * Set fragment to the fragment container view. Will set {@code EmptyMemoListFragment} if there
+   * are no memos. Otherwise, {@code MemoListFragment} will be set.
    */
   private void setFragment() {
-    taskCollection.findAll(user.getUid())
-        .addOnSuccessListener(tasksSnapshot -> taskCollection.findOne(user.getUid())
+    memoLists.findAll(user.getUid())
+        .addOnSuccessListener(tasksSnapshot -> memoLists.findOne(user.getUid())
             .addOnSuccessListener(sharedTasksSnapshot -> {
               if (tasksSnapshot.isEmpty()) {
-                // Load empty task list fragment.
                 fragmentManager.beginTransaction()
                     .setReorderingAllowed(true)
-                    .replace(R.id.fragment_container_view, EmptyTaskListFragment.class, null)
+                    .replace(R.id.fragment_container_view, EmptyMemoListFragment.class, null)
                     .commit();
               } else {
-                // Load task list fragment.
                 fragmentManager.beginTransaction()
                     .setReorderingAllowed(true)
-                    .replace(R.id.fragment_container_view, TaskListFragment.class, null)
+                    .replace(R.id.fragment_container_view, MemoListFragment.class, null)
                     .commit();
               }
             }));

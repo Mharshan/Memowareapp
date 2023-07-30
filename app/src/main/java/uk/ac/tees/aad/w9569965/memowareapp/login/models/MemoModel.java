@@ -3,7 +3,7 @@ package uk.ac.tees.aad.w9569965.memowareapp.login.models;
 import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.DocumentSnapshot;
 
-public class TaskModel {
+public class MemoModel {
   public static final String DEADLINE_FIELD = "deadline";
   public static final String DESCRIPTION_FIELD = "description";
   public static final String TITLE_FIELD = "title";
@@ -16,10 +16,10 @@ public class TaskModel {
   private String ownerId;
 
 
-  public TaskModel() {}
+  public MemoModel() {}
 
 
-  public TaskModel(
+  public MemoModel(
       String id, String title, String description, Timestamp deadline, String ownerId
   ) {
     this.id = id;
@@ -30,12 +30,12 @@ public class TaskModel {
   }
 
 
-  public TaskModel(DocumentSnapshot task) {
-    this.id = task.getId();
-    this.title = task.getString(TaskModel.TITLE_FIELD);
-    this.description = task.getString(TaskModel.DESCRIPTION_FIELD);
-    this.deadline = task.getTimestamp(TaskModel.DEADLINE_FIELD);
-    this.ownerId = task.getString(TaskModel.OWNER_ID_FIELD);
+  public MemoModel(DocumentSnapshot memo) {
+    this.id = memo.getId();
+    this.title = memo.getString(MemoModel.TITLE_FIELD);
+    this.description = memo.getString(MemoModel.DESCRIPTION_FIELD);
+    this.deadline = memo.getTimestamp(MemoModel.DEADLINE_FIELD);
+    this.ownerId = memo.getString(MemoModel.OWNER_ID_FIELD);
   }
 
 

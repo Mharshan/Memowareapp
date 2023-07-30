@@ -1,4 +1,4 @@
-package uk.ac.tees.aad.w9569965.memowareapp.login.activities.tasks;
+package uk.ac.tees.aad.w9569965.memowareapp.login.activities.memos;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -6,8 +6,6 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -17,28 +15,25 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.DocumentSnapshot;
 
 import java.util.Locale;
 
 import uk.ac.tees.aad.w9569965.memowareapp.R;
-import uk.ac.tees.aad.w9569965.memowareapp.login.lists.TaskCollection;
+import uk.ac.tees.aad.w9569965.memowareapp.login.lists.MemoLists;
 import uk.ac.tees.aad.w9569965.memowareapp.login.helper.InputHelper;
-import uk.ac.tees.aad.w9569965.memowareapp.login.models.TaskModel;
+import uk.ac.tees.aad.w9569965.memowareapp.login.models.MemoModel;
 
-public class DetailTaskActivity extends AppCompatActivity {
+public class DetailMemoActivity extends AppCompatActivity {
   // Authentication.
   private final FirebaseAuth auth = FirebaseAuth.getInstance();
   private final FirebaseUser user = auth.getCurrentUser();
 
   // Collections.
-  private final TaskCollection taskCollection = new TaskCollection();
+  private final MemoLists memoLists = new MemoLists();
 
-  // Task id.
   private String taskId;
 
-  // The task.
-  private TaskModel task;
+  private MemoModel task;
 
   // View elements.
   private TextView tvTitle, tvDescription, tvDeadline, tvCountSharedTask;
@@ -97,7 +92,7 @@ public class DetailTaskActivity extends AppCompatActivity {
 
   private void onEditItemSelected() {
     // Go to Edit Task Activity.
-    Intent intent = new Intent(this, EditTaskActivity.class);
+    Intent intent = new Intent(this, EditMemoActivity.class);
     intent.putExtra("taskId", taskId);
     startActivity(intent);
   }
@@ -106,20 +101,20 @@ public class DetailTaskActivity extends AppCompatActivity {
   private void onDeleteItemSelected() {
     AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
 
-    alertDialog.setTitle("Delete Task")
-        .setMessage("Are you sure to delete this task?")
+    alertDialog.setTitle("Delete Memo")
+        .setMessage("Are you sure to delete this memo?")
         .setNegativeButton("Cancel", null)
-        .setPositiveButton("Delete Task", (dialogInterface, i) -> {
+        .setPositiveButton("Delete Memo", (dialogInterface, i) -> {
           // Delete task.
-          taskCollection.delete(taskId).addOnCompleteListener(task -> {
+          memoLists.delete(taskId).addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
               deleteRelatedSharedTasks(taskId);    // Get all related shared tasks.
               finish();    // Finish this activity.
-              Toast.makeText(this, "One task has been deleted.", Toast.LENGTH_SHORT).show();
+              Toast.makeText(this, "One memo has been deleted.", Toast.LENGTH_SHORT).show();
             }
           }).addOnFailureListener(e -> {
-            Toast.makeText(this, "Failed to delete task.", Toast.LENGTH_SHORT).show();
-            Log.e("deleteTask", e.getMessage(), e);
+            Toast.makeText(this, "Failed to delete memo.", Toast.LENGTH_SHORT).show();
+            Log.e("deleteMemo", e.getMessage(), e);
           });
         });
 
@@ -129,9 +124,9 @@ public class DetailTaskActivity extends AppCompatActivity {
 
 
   private void loadTask() {
-    taskCollection.findOne(taskId).addOnSuccessListener(documentSnapshot -> {
+    memoLists.findOne(taskId).addOnSuccessListener(documentSnapshot -> {
       // Set task.
-      task = new TaskModel(documentSnapshot);
+      task = new MemoModel(documentSnapshot);
 
       // Set access.
       setTaskAccess();

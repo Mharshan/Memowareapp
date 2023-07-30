@@ -1,4 +1,4 @@
-package uk.ac.tees.aad.w9569965.memowareapp.login.activities.tasks;
+package uk.ac.tees.aad.w9569965.memowareapp.login.activities.memos;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,15 +16,15 @@ import java.util.Calendar;
 
 import uk.ac.tees.aad.w9569965.memowareapp.R;
 import uk.ac.tees.aad.w9569965.memowareapp.login.MainActivity;
-import uk.ac.tees.aad.w9569965.memowareapp.login.lists.TaskCollection;
+import uk.ac.tees.aad.w9569965.memowareapp.login.lists.MemoLists;
 import uk.ac.tees.aad.w9569965.memowareapp.login.helper.DateTimePickerDialog;
 import uk.ac.tees.aad.w9569965.memowareapp.login.helper.InputHelper;
-import uk.ac.tees.aad.w9569965.memowareapp.login.models.TaskModel;
+import uk.ac.tees.aad.w9569965.memowareapp.login.models.MemoModel;
 
-public class EditTaskActivity extends AppCompatActivity {
+public class EditMemoActivity extends AppCompatActivity {
   private final Calendar calendar = Calendar.getInstance();
-  private final TaskCollection taskCollection = new TaskCollection();
-  private TaskModel taskModel;
+  private final MemoLists memoLists = new MemoLists();
+  private MemoModel memoModel;
 
   /* View elements. */
   private Button btnEditTask;
@@ -68,19 +68,19 @@ public class EditTaskActivity extends AppCompatActivity {
         String strDeadline = InputHelper.getRequiredInput(inputDeadline);
         Timestamp deadline = new Timestamp(InputHelper.inputToDate(strDeadline));
 
-        taskModel.setTitle(title);
-        taskModel.setDescription(description);
-        taskModel.setDeadline(deadline);
+        memoModel.setTitle(title);
+        memoModel.setDescription(description);
+        memoModel.setDeadline(deadline);
 
         /* Edit new task. */
-        taskCollection.update(taskModel).addOnCompleteListener(task -> {
+        memoLists.update(memoModel).addOnCompleteListener(task -> {
           if (task.isSuccessful()) {
             /* If success, finish this activity. */
-            Toast.makeText(this, "Task successfully edited.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Memo successfully edited.", Toast.LENGTH_SHORT).show();
             finish();
           } else {
-            Toast.makeText(this, "Failed to edit task.", Toast.LENGTH_SHORT).show();
-            Log.e("editTask", "Failed to edit task.", task.getException());
+            Toast.makeText(this, "Failed to edit Memo.", Toast.LENGTH_SHORT).show();
+            Log.e("editMemo", "Failed to edit Memo.", task.getException());
           }
         });
       } catch (NullPointerException e) {
@@ -98,25 +98,25 @@ public class EditTaskActivity extends AppCompatActivity {
     super.onStart();
 
     /* Get the task. */
-    taskCollection.findOne(getIntent().getStringExtra(MainActivity.TASK_ID_KEY))
+    memoLists.findOne(getIntent().getStringExtra(MainActivity.TASK_ID_KEY))
         .addOnSuccessListener(documentSnapshot -> {
           /* Initialize task. */
-          taskModel = new TaskModel(documentSnapshot);
+          memoModel = new MemoModel(documentSnapshot);
 
           /* Set calendar to deadline value. */
-          calendar.setTime(taskModel.getDeadline().toDate());
+          calendar.setTime(memoModel.getDeadline().toDate());
 
           /* Display the task data. */
-          inputTitle.setText(taskModel.getTitle());
-          inputDescription.setText(taskModel.getDescription());
-          inputDeadline.setText(InputHelper.dateToInput(taskModel.getDeadline().toDate()));
+          inputTitle.setText(memoModel.getTitle());
+          inputDescription.setText(memoModel.getDescription());
+          inputDeadline.setText(InputHelper.dateToInput(memoModel.getDeadline().toDate()));
         });
   }
 
 
   @Override
   public boolean navigateUpTo(Intent upIntent) {
-    upIntent.putExtra("taskId", taskModel.getId());
+    upIntent.putExtra("taskId", memoModel.getId());
     return super.navigateUpTo(upIntent);
   }
 }

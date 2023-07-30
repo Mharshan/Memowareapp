@@ -5,22 +5,22 @@ import androidx.annotation.Nullable;
 
 import java.util.Date;
 
-import uk.ac.tees.aad.w9569965.memowareapp.login.models.TaskModel;
+import uk.ac.tees.aad.w9569965.memowareapp.login.models.MemoModel;
 
 
 /**
- * The item of {@code TaskAdapter}.
+ * The item of {@code MemoAdapter}.
  *
- * @see uk.ac.tees.aad.w9569965.memowareapp.login.adapters.TaskAdapter TaskAdapter
+ * @see MemoAdapter MemoAdapter
  */
-public class TaskItem {
+public class MemoItem {
   private String id;
   private String title;
   private Date deadline;
   private String ownerName;
 
 
-  public TaskItem(
+  public MemoItem(
       @NonNull String id, @NonNull String title, @NonNull Date deadline, @Nullable String ownerName
   ) {
     this.id = id;
@@ -30,7 +30,7 @@ public class TaskItem {
   }
 
 
-  public TaskItem(@NonNull TaskModel task) {
+  public MemoItem(@NonNull MemoModel task) {
     this.id = task.getId();
     this.title = task.getTitle();
     this.deadline = task.getDeadline().toDate();

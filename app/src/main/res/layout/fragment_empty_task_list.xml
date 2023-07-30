@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="uk.ac.tees.aad.w9569965.memowareapp.login.fragments.EmptyTaskListFragment"
+    tools:context="uk.ac.tees.aad.w9569965.memowareapp.login.fragments.EmptyMemoListFragment"
     >
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -17,7 +17,7 @@
             android:id="@+id/label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/text_empty_tasks"
+            android:text="@string/text_empty_memos"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -29,7 +29,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:text="@string/label_button_add_task"
+            android:text="@string/label_button_add_memo"
             android:textAllCaps="false"
             app:icon="@drawable/ic_add_task_24"
             app:layout_constraintEnd_toEndOf="parent"

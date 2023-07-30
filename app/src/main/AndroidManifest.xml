@@ -28,19 +28,19 @@
             android:label="Forgot Password"
             android:parentActivityName="uk.ac.tees.aad.w9569965.memowareapp.login.LoginActivity" />
         <activity
-            android:name="uk.ac.tees.aad.w9569965.memowareapp.login.activities.tasks.DetailTaskActivity"
+            android:name="uk.ac.tees.aad.w9569965.memowareapp.login.activities.memos.DetailMemoActivity"
             android:exported="false"
-            android:label="Detail Task"
+            android:label="Detail Memo"
             android:parentActivityName="uk.ac.tees.aad.w9569965.memowareapp.login.MainActivity" />
         <activity
-            android:name="uk.ac.tees.aad.w9569965.memowareapp.login.activities.tasks.EditTaskActivity"
+            android:name="uk.ac.tees.aad.w9569965.memowareapp.login.activities.memos.EditMemoActivity"
             android:exported="false"
-            android:label="Edit Task"
-            android:parentActivityName="uk.ac.tees.aad.w9569965.memowareapp.login.activities.tasks.DetailTaskActivity" />
+            android:label="Edit Memo"
+            android:parentActivityName="uk.ac.tees.aad.w9569965.memowareapp.login.activities.memos.DetailMemoActivity" />
         <activity
-            android:name="uk.ac.tees.aad.w9569965.memowareapp.login.activities.tasks.AddTaskActivity"
+            android:name="uk.ac.tees.aad.w9569965.memowareapp.login.activities.memos.AddMemoActivity"
             android:exported="false"
-            android:label="Add Task"
+            android:label="Add Memo"
             android:parentActivityName="uk.ac.tees.aad.w9569965.memowareapp.login.MainActivity" />
         <activity
             android:name="uk.ac.tees.aad.w9569965.memowareapp.login.UpdateProfileActivity"
